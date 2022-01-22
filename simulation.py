@@ -17,9 +17,13 @@ DRONE_SEARCH_RADIUS = (255, 255, 255, 128)
 screen = pygame.display.set_mode(SIZE)
 fps = pygame.time.Clock()
 
+person_img = pygame.image.load("sadface.png").convert_alpha()
+person_img = pygame.transform.scale(person_img, (68,62))
+
 
 def draw_person(pos):
-    pygame.draw.circle(screen, PERSON_FILL, pos, 5, 0)
+    # pygame.draw.circle(screen, PERSON_FILL, pos, 5, 0)
+    screen.blit(person_img, pos)
 
 
 def draw_drone(pos, search_radius):
