@@ -9,28 +9,73 @@ class SearchAlgorithm:
     def returnNextWorldStateInstance(self):
         return self.worldState
 
-# class BasicSearchAlgorithm(SearchAlgorithm):
-#     dfaState = ""
-#     startingWidthLocations = []
-#     def __init__(self, WSI):
-#         " Creates a basic \"snake like\" algorithm "
-#         self.worldState = WSI
-#         self.dfaState = "setup"
-#         for i in range(len(WSI.listOfDroneObjects)):
-#             self.startingWidthLocations.append((WSI.width/len(WSI.listOfDroneObjects))*i)
-#
-#
-#     def returnNextWorldStateInstance(self):
-#         if (dfaState == "setup"):
-#             # establish starting locations for the drones and move them there
-#             movespeed = listOfDroneObjects[0].moveSpeed
-#             for i in range(len(worldState.listOfDroneObjects)):
-#                 x_loc = listOfDroneObjects[i].x
-#                 if (x_loc != startingWidthLocations[i]):
-#                     # do movemenet of drones towards starting location
-#                     WSI.listOfDroneObjects[i].x += min(startingWidthLocations - x_loc, moveSpeed)
-#
-#         return worldState
+class BasicSearchAlgorithm(SearchAlgorithm):
+    dfaState = ""
+    leftToRight = True
+    descending = False
+    y_level = 0
+    startingWidthLocations = []
+    def __init__(self, WSI):
+        self.worldState = WSI
+        self.dfaState = "setup"
+        self.leftToRight = True
+        self.descending = False
+        self.y_level = 0
+        for i in range(len(WSI.droneList)):
+            self.startingWidthLocations.append((WSI.width/len(WSI.droneList))*i)
+
+        self.dx = self.worldState.width / self.worldState.numDrones
+        self.dy = WSI.droneList[0].searchRadius
+
+        self.moveToRight = 1
+
+        self.worldState.numDrones = 1
+        for i in range(self.worldState.numDrones):
+            self.worldState.droneList[i].setCoords(int(self.dx * (i + 0.5)), 0)
+
+    def returnNextWorldStateInstance(self):
+        if (self.dfaState == "setup"):
+            # establish starting locations for the drones and move them there
+            moveSpeed = self.worldState.droneList[0].moveSpeed
+            correctLocation = True
+            for i in range(len(self.worldState.droneList)):
+                x_loc = self.worldState.droneList[i].x
+                if (x_loc != self.startingWidthLocations[i]):
+                    correctLocation = False
+                    # do movemenet of drones towards starting location
+                    self.worldState.droneList[i].x += min(self.startingWidthLocations[i] - x_loc, moveSpeed)
+            if (correctLocation):
+                self.dfaState = "scan"
+        elif (self.dfaState == "scan"):
+            moveSpeed = self.worldState.droneList[0].moveSpeed
+            widthDistance = self.startingWidthLocations[1]
+
+            # check if going right, down, left
+            listOfDrones = self.worldState.droneList
+            if (self.descending):
+                for i in range(len(listOfDrones)):
+                    drone = listOfDrones[i]
+                    drone.moveTowardsLocation(drone.x, self.y_level)
+                    if (drone.y == self.y_level):
+                        self.descending = False
+            elif (self.leftToRight):
+                for i in range(len(listOfDrones)):
+                    drone = listOfDrones[i]
+                    drone.moveTowardsLocation(self.startingWidthLocations[i] + widthDistance, drone.y)
+                    if (drone.x == self.startingWidthLocations[i] + widthDistance):
+                        self.leftToRight = False
+                        self.descending = True
+                        self.y_level += (drone.searchRadius)
+            else:
+                for i in range(len(listOfDrones)):
+                    drone = listOfDrones[i]
+                    drone.moveTowardsLocation(self.startingWidthLocations[i], drone.y)
+                    if (drone.x == self.startingWidthLocations[i]):
+                        self.leftToRight = True
+                        self.descending = True
+                        self.y_level += (drone.searchRadius)
+
+        return self.worldState
 
 
 class ZShapeAlgorithm(SearchAlgorithm):
