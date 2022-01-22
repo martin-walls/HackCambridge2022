@@ -42,6 +42,7 @@ class Person:
 
 
 retAttr = UpdateAttrs([Person()], [Drone()])
+print(retAttr)
 def update():
-    retAttr.listOfDroneObjects[0].movePerson(4, 4))
+    printretAttr.peopleList[0].movePerson(4, 4)
     return retAttr
