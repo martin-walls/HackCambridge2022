@@ -3,29 +3,38 @@ import sys
 
 import backend
 
-SIZE = width, height = 500,500
+SIZE = width, height = 700,500
 
-# person_position = []
-# drone_positions = [[x, y], ...]
+# COLORS
+OCEAN = (0,0,255)
+BLACK = (0,0,0)
+WHITE = (255, 255, 255)
 
+screen = pygame.display.set_mode(SIZE)
+fps = pygame.time.Clock()
 
 
 # speed = [1,1]
 
-# OCEAN = (0,0,255)
 
 # pygame.init()
-# screen = pygame.display.set_mode(SIZE)
-# fps = pygame.time.Clock()
 
 # person_pos = [50, 50]
 # move_counter = 0
 
-# def render():
-#   screen.fill(OCEAN)
-#   pygame.draw.circle(screen, (0,0,0), person_pos, 5, 0)
-#   pygame.display.update()
-#   fps.tick(60)
+def draw_person(pos):
+  pygame.draw.circle(screen, BLACK, pos, 5, 0)
+
+def draw_drone(pos):
+  pygame.draw.circle(screen, WHITE, pos, 3, 0)
+
+def render(person_pos, drone_pos):
+  screen.fill(OCEAN)
+  draw_person(person_pos)
+  for drone in drone_pos:
+    draw_drone(drone)
+  pygame.display.update()
+  fps.tick(60)
 
 
 
@@ -46,5 +55,9 @@ SIZE = width, height = 500,500
 #   render()
 
 if __name__ == "__main__":
-  x = backend.UpdateAttrs()
-  print(x.person_pos)
+
+  while True:
+    render((50, 50), [(30, 100), (200, 150), (300, 400)])
+
+  # x = backend.UpdateAttrs()
+  # print(x.person_pos)
