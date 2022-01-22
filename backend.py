@@ -1,8 +1,44 @@
 
 
 class UpdateAttrs:
-  person_pos = (400, 200)
-  drone_positions = [(100, 200), (300, 400), (300, 100)]
+    peopleList = []
+    droneList = []
+
+    def __init__(self, listOfPersonObjects, listOfDroneObjects):
+        """ Create a new point at the origin """
+        self.peopleList = listOfPersonObjects
+        self.droneList = listOfDroneObjects
+
+
+
+
+class Drone:
+    x = 0
+    y = 0
+    def __init__(self):
+        """ Creates drone object """
+        self.x = 0
+        self.y = 0
+
+    def returnCoords(self):
+        return (self.x, self.y)
+
+class Person:
+    x = 0
+    y = 0
+    def __init__(self):
+        """ Creates person object """
+        self.x = 0
+        self.y = 0
+
+    def returnCoords(self):
+        return (self.x, self.y)
+
+
+
 
 def update():
-  return UpdateAttrs()
+    retAttr = UpdateAttrs([Person()], [Drone()])
+    return retAttr
+
+print(update())
