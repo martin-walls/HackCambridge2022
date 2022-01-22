@@ -3,7 +3,8 @@ import sys
 
 import backend
 
-SIZE = width, height = 1400, 1000
+# SIZE = backend.WIDTH, backend.HEIGHT
+SIZE = (1400, 700)
 
 # COLORS
 OCEAN = (0, 0, 255)
@@ -24,7 +25,8 @@ person_img = pygame.image.load("sadface.png").convert_alpha()
 person_img = pygame.transform.scale(person_img, (68,62))
 
 drone_img = pygame.image.load("drone.png").convert_alpha()
-drone_img = pygame.transform.scale(drone_img, (70,70))
+DRONE_IMG_WIDTH = 50
+drone_img = pygame.transform.scale(drone_img, (DRONE_IMG_WIDTH, DRONE_IMG_WIDTH))
 
 
 def draw_person(person):
@@ -34,7 +36,9 @@ def draw_person(person):
 
 def draw_drone(drone):
     # pygame.draw.circle(surface, DRONE_FILL, drone.returnCoords(), DRONE_DOT_RADIUS, 0)
-    surface.blit(drone_img, (drone.returnCoords()[0] - 35, drone.returnCoords()[1] - 35))
+    drone_coords = drone.returnCoords()
+    image_coords = (drone_coords[0] - DRONE_IMG_WIDTH/2, drone_coords[1] - DRONE_IMG_WIDTH/2)
+    surface.blit(drone_img, image_coords)
     pygame.draw.circle(surface, DRONE_SEARCH_RADIUS_COLOR, drone.returnCoords(), drone.getSearchRadius(), 1)
 
 
