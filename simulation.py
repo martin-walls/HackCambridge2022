@@ -3,7 +3,8 @@ import sys
 
 import backend
 
-SIZE = width, height = 1400, 1000
+SIZE = (backend.WIDTH, backend.HEIGHT)
+# SIZE = width, height = 1400, 1000
 
 # COLORS
 OCEAN = (0, 0, 255)
