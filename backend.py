@@ -1,8 +1,10 @@
 import algorithms
 import math
 
+WIDTH = 500
+HEIGHT = 700
 
-class worldStateInstance:
+class WorldStateInstance:
     peopleList = []
     droneList = []
     numDrones = 0
@@ -14,8 +16,8 @@ class worldStateInstance:
         self.peopleList = listOfPersonObjects
         self.droneList = listOfDroneObjects
         self.numDrones = len(listOfDroneObjects)
-        self.width = 700
-        self.width = 500
+        self.width = WIDTH
+        self.height = HEIGHT
 
 
 class Drone:
@@ -68,7 +70,7 @@ class Person:
 
 
 
-retAttr = worldStateInstance([Person()], [Drone()])
+retAttr = WorldStateInstance([Person()], [Drone()])
 sa = algorithms.SearchAlgorithm(retAttr)
 
 print(retAttr)
