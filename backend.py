@@ -32,7 +32,7 @@ class Drone:
         self.x = 70
         self.y = 90
         self.searchRadius = 200
-        self.moveSpeed = self.searchRadius
+        self.moveSpeed = 10
 
     def returnCoords(self):
         return (self.x, self.y)
@@ -43,11 +43,20 @@ class Drone:
     def detectPerson(self, peopleList):
         found_people_list = []
         for person in peopleList:
+            # can use object detection algorithm in the future to determine whether a person has been detected
             distance = math.sqrt((self.x - person.x) ** 2 + (self.y - person.y) ** 2)
             if distance <= self.searchRadius:
                 print("Find a person")
                 found_people_list.append(person)
         return found_people_list
+
+    def moveInDirection(self, dx, dy):
+        actual_dis = math.sqrt(dx ** 2 + dy ** 2)
+        dx = dx / actual_dis * self.moveSpeed
+        dy = dy / actual_dis * self.moveSpeed
+
+        self.x += dx
+        self.y += dy
 
 
 
