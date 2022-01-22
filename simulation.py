@@ -4,7 +4,7 @@ import sys
 import backend
 
 # SIZE = backend.WIDTH, backend.HEIGHT
-SIZE = (1400, 700)
+SIZE = (700, 500)
 
 # COLORS
 OCEAN = (0, 0, 255)
@@ -54,7 +54,7 @@ def render(person_list, drone_list):
     screen.blit(surface, (0,0))
 
     pygame.display.update()
-    fps.tick(60)
+    fps.tick(30)
 
 
 

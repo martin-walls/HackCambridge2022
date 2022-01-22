@@ -16,7 +16,7 @@ class worldStateInstance:
         self.droneList = listOfDroneObjects
         self.numDrones = len(listOfDroneObjects)
         self.width = 700
-        self.width = 500
+        self.height = 500
 
 
 class Drone:
@@ -46,6 +46,18 @@ class Drone:
                 print("Find a person")
                 found_people_list.append(person)
         return found_people_list
+
+    def move_by_angle(self, angle, speed):
+        """ angle measured clockwise from north, in degrees """
+        if speed > self.moveSpeed:
+            speed = self.moveSpeed
+
+        radians = math.radians(angle)
+        delta_x = speed * math.sin(radians)
+        delta_y = speed * math.cos(radians)
+        self.x += delta_x
+        self.y += delta_y
+
 
 
 
@@ -77,8 +89,9 @@ class Person:
 
 retAttr = worldStateInstance([Person()], [Drone()])
 sa = algorithms.SearchAlgorithm(retAttr)
+# retAttr = worldStateInstance([Person()], [Drone(), Drone(), Drone(), Drone(), Drone(), Drone()])
+# sa = algorithms.SpiralSearchAlgorithm(retAttr)
 
-print(retAttr)
 def update():
     retAttr = sa.returnNextWorldStateInstance()
     retAttr.peopleList[0].moveRandomly()
