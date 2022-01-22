@@ -1,4 +1,3 @@
-
 class UpdateAttrs:
     peopleList = []
     droneList = []
@@ -9,26 +8,27 @@ class UpdateAttrs:
         self.droneList = listOfDroneObjects
 
 
-
-
 class Drone:
     x = 0
     y = 0
+
     def __init__(self):
         """ Creates drone object """
-        self.x = 0
-        self.y = 0
+        self.x = 70
+        self.y = 90
 
     def returnCoords(self):
         return (self.x, self.y)
 
+
 class Person:
     x = 0
     y = 0
+
     def __init__(self):
         """ Creates person object """
-        self.x = 0
-        self.y = 0
+        self.x = 100
+        self.y = 240
 
     def returnCoords(self):
         return (self.x, self.y)
