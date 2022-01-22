@@ -34,6 +34,10 @@ class Drone:
         self.searchRadius = 200
         self.moveSpeed = 10
 
+    def setCoords(self, x, y):
+        self.x = x
+        self.y = y
+
     def returnCoords(self):
         return (self.x, self.y)
 
@@ -87,9 +91,11 @@ class Person:
 
 
 retAttr = WorldStateInstance([Person()], [Drone()])
-sa = algorithms.SearchAlgorithm(retAttr)
+# sa = algorithms.SearchAlgorithm(retAttr)
+sa = algorithms.ZShapeAlgorithm(retAttr)
 
-print(retAttr)
+
+# print(retAttr)
 def update():
     retAttr = sa.returnNextWorldStateInstance()
     retAttr.peopleList[0].moveRandomly()
