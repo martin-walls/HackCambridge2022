@@ -1,5 +1,6 @@
 import algorithms
 import math
+import random
 
 WIDTH = 500
 HEIGHT = 700
@@ -67,6 +68,12 @@ class Person:
         self.x = self.x + x_change
         self.y = self.y + y_change
 
+    def moveRandomly(self):
+        dx = random.randint(-1, 2)
+        dy = random.randint(-1, 2)
+        self.movePerson(dx, dy)
+
+
 
 
 
@@ -76,5 +83,5 @@ sa = algorithms.SearchAlgorithm(retAttr)
 print(retAttr)
 def update():
     retAttr = sa.returnNextWorldStateInstance()
-    #retAttr.peopleList[0].movePerson(1, 1)
+    retAttr.peopleList[0].moveRandomly()
     return retAttr
