@@ -3,7 +3,7 @@ import sys
 
 import backend
 
-SIZE = width, height = 700, 500
+SIZE = width, height = 1400, 1000
 
 # COLORS
 OCEAN = (0, 0, 255)
@@ -28,7 +28,7 @@ def draw_person(person):
 
 def draw_drone(drone):
     pygame.draw.circle(screen, DRONE_FILL, drone.returnCoords(), 3, 0)
-    pygame.draw.circle(screen, DRONE_SEARCH_RADIUS, drone.returnCoords(), 10, 1)
+    pygame.draw.circle(screen, DRONE_SEARCH_RADIUS, drone.returnCoords(), drone.getSearchRadius(), 1)
 
 
 def render(person_list, drone_list):
@@ -43,14 +43,6 @@ def render(person_list, drone_list):
     pygame.display.update()
     fps.tick(60)
 
-
-# def render(person_pos, drone_pos):
-#     screen.fill(OCEAN)
-#     draw_person(person_pos)
-#     for drone in drone_pos:
-#         draw_drone(drone, 10)
-#     pygame.display.update()
-#     fps.tick(60)
 
 
 if __name__ == "__main__":
