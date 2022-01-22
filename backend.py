@@ -1,5 +1,4 @@
 
-
 class UpdateAttrs:
     peopleList = []
     droneList = []
@@ -34,11 +33,15 @@ class Person:
     def returnCoords(self):
         return (self.x, self.y)
 
+    def movePerson(self, x_change, y_change):
+        self.x = self.x + x_change
+        self.y = self.y + y_change
 
 
 
+
+
+retAttr = UpdateAttrs([Person()], [Drone()])
 def update():
-    retAttr = UpdateAttrs([Person()], [Drone()])
+    retAttr.listOfDroneObjects[0].movePerson(4, 4))
     return retAttr
-
-print(update())
