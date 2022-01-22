@@ -2,7 +2,7 @@ import algorithms
 import math
 import random
 
-WIDTH = 500
+WIDTH = 1000
 HEIGHT = 700
 
 class WorldStateInstance:
@@ -67,12 +67,13 @@ class Drone:
 
     def moveInDirection(self, dx, dy):
         actual_dis = math.sqrt(dx ** 2 + dy ** 2)
-        dx = dx / actual_dis * self.moveSpeed
-        dy = dy / actual_dis * self.moveSpeed
+        dx = int(dx / actual_dis * self.moveSpeed)
+        dy = int(dy / actual_dis * self.moveSpeed)
 
         self.x += dx
         self.y += dy
 
+        print(self.x, " ", self.y)
 
 class Person:
     x = 0

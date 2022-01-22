@@ -9,28 +9,28 @@ class SearchAlgorithm:
     def returnNextWorldStateInstance(self):
         return self.worldState
 
-class BasicSearchAlgorithm(SearchAlgorithm):
-    dfaState = ""
-    startingWidthLocations = []
-    def __init__(self, WSI):
-        " Creates a basic \"snake like\" algorithm "
-        self.worldState = WSI
-        self.dfaState = "setup"
-        for i in range(len(WSI.listOfDroneObjects)):
-            startingWidthLocations.append((WSI.width/len(WSI.listOfDroneObjects))*i)
-
-
-    def returnNextWorldStateInstance(self):
-        if (dfaState == "setup"):
-            # establish starting locations for the drones and move them there
-            movespeed = listOfDroneObjects[0].moveSpeed
-            for i in range(len(worldState.listOfDroneObjects)):
-                x_loc = listOfDroneObjects[i].x
-                if (x_loc != startingWidthLocations[i]):
-                    # do movemenet of drones towards starting location
-                    WSI.listOfDroneObjects[i].x += min(startingWidthLocations - x_loc, moveSpeed)
-
-        return worldState
+# class BasicSearchAlgorithm(SearchAlgorithm):
+#     dfaState = ""
+#     startingWidthLocations = []
+#     def __init__(self, WSI):
+#         " Creates a basic \"snake like\" algorithm "
+#         self.worldState = WSI
+#         self.dfaState = "setup"
+#         for i in range(len(WSI.listOfDroneObjects)):
+#             self.startingWidthLocations.append((WSI.width/len(WSI.listOfDroneObjects))*i)
+#
+#
+#     def returnNextWorldStateInstance(self):
+#         if (dfaState == "setup"):
+#             # establish starting locations for the drones and move them there
+#             movespeed = listOfDroneObjects[0].moveSpeed
+#             for i in range(len(worldState.listOfDroneObjects)):
+#                 x_loc = listOfDroneObjects[i].x
+#                 if (x_loc != startingWidthLocations[i]):
+#                     # do movemenet of drones towards starting location
+#                     WSI.listOfDroneObjects[i].x += min(startingWidthLocations - x_loc, moveSpeed)
+#
+#         return worldState
 
 
 class ZShapeAlgorithm(SearchAlgorithm):
@@ -54,7 +54,6 @@ class ZShapeAlgorithm(SearchAlgorithm):
             self.moveToRight *= -1
 
         return self.worldState
-
 
 
 class SpiralSearchAlgorithm(SearchAlgorithm):
@@ -91,4 +90,3 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
 
             for i in range(self.worldState.numDrones):
                 self._drone_dirs[i] += self._angle_change
-
