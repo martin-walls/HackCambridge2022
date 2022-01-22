@@ -12,11 +12,17 @@ class WorldStateInstance:
     width = 0
     height = 0
 
-    def __init__(self, listOfPersonObjects, listOfDroneObjects):
+    def __init__(self, droneNum, peopleNum):
         """ Create a new point at the origin """
-        self.peopleList = listOfPersonObjects
-        self.droneList = listOfDroneObjects
-        self.numDrones = len(listOfDroneObjects)
+        self.droneList = []
+        for i in range(droneNum):
+            self.droneList.append(Drone())
+
+        self.peopleList = []
+        for i in range(peopleNum):
+            self.peopleList.append(Person())
+
+        self.numDrones = droneNum
         self.width = WIDTH
         self.height = HEIGHT
 
@@ -31,7 +37,7 @@ class Drone:
         """ Creates drone object """
         self.x = x
         self.y = y
-        self.searchRadius = 50
+        self.searchRadius = 200
         self.moveSpeed = 10
 
     def setCoords(self, x, y):
@@ -68,8 +74,8 @@ class Drone:
     def move_absolute(self, dx, dy):
         dist = math.sqrt(dx**2 + dy**2)
         if dist > self.moveSpeed:
-            dx = int(dx / dist * moveSpeed)
-            dy = int(dy / dist * moveSpeed)
+            dx = int(dx / dist * self.moveSpeed)
+            dy = int(dy / dist * self.moveSpeed)
 
         self.x += dx
         self.y += dy
@@ -81,6 +87,9 @@ class Drone:
 
         self.x += dx
         self.y += dy
+
+        # print(self.x, " ", self.y)
+
 
 
 class Person:
@@ -108,12 +117,10 @@ class Person:
 
 
 
-# retAttr = WorldStateInstance([Person()], [Drone()])
+retAttr = WorldStateInstance(3, 1)
 # sa = algorithms.SearchAlgorithm(retAttr)
-# sa = algorithms.ZShapeAlgorithm(retAttr)
+sa = algorithms.ZShapeAlgorithm(retAttr)
 
-retAttr = WorldStateInstance([Person()], [Drone(), Drone(), Drone(), Drone(), Drone(), Drone()])
-sa = algorithms.SpiralSearchAlgorithm(retAttr)
 
 # print(retAttr)
 def update():

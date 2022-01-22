@@ -42,7 +42,6 @@ class ZShapeAlgorithm(SearchAlgorithm):
 
         self.moveToRight = 1
 
-        self.worldState.numDrones = 1
         for i in range(self.worldState.numDrones):
             self.worldState.droneList[i].setCoords(int(self.dx * (i + 0.5)), 0)
 
