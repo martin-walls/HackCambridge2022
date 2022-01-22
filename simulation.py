@@ -14,14 +14,6 @@ screen = pygame.display.set_mode(SIZE)
 fps = pygame.time.Clock()
 
 
-# speed = [1,1]
-
-
-# pygame.init()
-
-# person_pos = [50, 50]
-# move_counter = 0
-
 def draw_person(pos):
   pygame.draw.circle(screen, BLACK, pos, 5, 0)
 
@@ -38,26 +30,9 @@ def render(person_pos, drone_pos):
 
 
 
-# while True:
-#   for event in pygame.event.get():
-#     if event.type == pygame.QUIT:
-#       pygame.quit()
-#       sys.exit()
-
-#   person_position, drone_positions = backend.update()
-
-#   move_counter += 1
-
-#   if (move_counter == 20):
-#     person_pos[0] += 1
-#     move_counter = 0
-
-#   render()
 
 if __name__ == "__main__":
 
   while True:
-    render((50, 50), [(30, 100), (200, 150), (300, 400)])
-
-  # x = backend.UpdateAttrs()
-  # print(x.person_pos)
+    attrs = backend.update()
+    render(attrs.person_pos, attrs.drone_positions)
