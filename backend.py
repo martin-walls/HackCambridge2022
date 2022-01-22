@@ -90,6 +90,17 @@ class Drone:
 
         # print(self.x, " ", self.y)
 
+    def moveTowardsLocation(self, x_toLocation, y_toLocation):
+        x_proposedMove = x_toLocation - self.x
+        y_proposedMove = y_toLocation - self.y
+        proposedDistance = math.sqrt((x_proposedMove)**2 + (y_proposedMove)**2)
+        if (proposedDistance <= self.moveSpeed):
+            self.x += x_proposedMove
+            self.y += y_proposedMove
+        else:
+            self.x += x_proposedMove * self.moveSpeed / proposedDistance
+            self.y += y_proposedMove * self.moveSpeed / proposedDistance
+
 
 
 class Person:
@@ -119,7 +130,7 @@ class Person:
 
 retAttr = WorldStateInstance(3, 1)
 # sa = algorithms.SearchAlgorithm(retAttr)
-sa = algorithms.ZShapeAlgorithm(retAttr)
+sa = algorithms.BasicSearchAlgorithm(retAttr)
 
 
 # print(retAttr)
