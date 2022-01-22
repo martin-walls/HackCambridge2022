@@ -1,26 +1,35 @@
+import algorithms
 import math
 
 
 class worldStateInstance:
     peopleList = []
     droneList = []
+    numDrones = 0
+    width = 0
+    height = 0
 
     def __init__(self, listOfPersonObjects, listOfDroneObjects):
         """ Create a new point at the origin """
         self.peopleList = listOfPersonObjects
         self.droneList = listOfDroneObjects
+        self.numDrones = len(listOfDroneObjects)
+        self.width = 700
+        self.width = 500
 
 
 class Drone:
     x = 0
     y = 0
     searchRadius = 0
+    moveSpeed = 0
 
     def __init__(self):
         """ Creates drone object """
         self.x = 70
         self.y = 90
-        self.searchRadius = 50
+        self.searchRadius = 200
+        self.moveSpeed = self.searchRadius
 
     def returnCoords(self):
         return (self.x, self.y)
@@ -57,20 +66,13 @@ class Person:
         self.y = self.y + y_change
 
 
-class SearchAlgorithm:
-    worldState = 0
-    def __init__(self):
-        """ Creates general algorithm class """
-        self.worldState = worldStateInstance()
-
-
-
 
 
 retAttr = worldStateInstance([Person()], [Drone()])
-
+sa = algorithms.SearchAlgorithm(retAttr)
 
 print(retAttr)
 def update():
-    retAttr.peopleList[0].movePerson(4, 4)
+    retAttr = sa.returnNextWorldStateInstance()
+    #retAttr.peopleList[0].movePerson(1, 1)
     return retAttr
