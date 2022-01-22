@@ -27,10 +27,10 @@ class Drone:
     searchRadius = 0
     moveSpeed = 0
 
-    def __init__(self):
+    def __init__(self, x=70, y=90):
         """ Creates drone object """
-        self.x = 70
-        self.y = 90
+        self.x = x
+        self.y = y
         self.searchRadius = 200
         self.moveSpeed = 10
 
