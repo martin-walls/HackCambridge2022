@@ -39,6 +39,6 @@ class Person:
 
 def update():
     retAttr = UpdateAttrs([Person()], [Drone()])
-    return (retAttr.peopleList, retAttr.droneList)
+    return retAttr
 
 print(update())
