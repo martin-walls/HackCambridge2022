@@ -62,14 +62,17 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
     _speed = 1
     _move_forward_counter = 1
     _move_forward_max = 1
+    _drift = (0.5, 0.5)
 
     def __init__(self, WSI):
         super().__init__(WSI)
         self._drone_dirs = np.linspace(0, 360, self.worldState.numDrones, endpoint=False)
 
         for drone in self.worldState.droneList:
-            drone.x = self.worldState.width / 2
-            drone.y = self.worldState.height / 2
+            # drone.x = self.worldState.width / 2
+            # drone.y = self.worldState.height / 2
+            drone.x = 50
+            drone.y = 50
 
         print(self._drone_dirs)
 
@@ -78,6 +81,7 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
             drone = self.worldState.droneList[i]
             angle = self._drone_dirs[i]
             drone.move_by_angle(angle, self._speed)
+            drone.move_absolute(*self._drift)
         self._next_state()
         return self.worldState
 

@@ -31,7 +31,7 @@ class Drone:
         """ Creates drone object """
         self.x = x
         self.y = y
-        self.searchRadius = 200
+        self.searchRadius = 50
         self.moveSpeed = 10
 
     def setCoords(self, x, y):
@@ -65,6 +65,15 @@ class Drone:
         self.x += delta_x
         self.y += delta_y
 
+    def move_absolute(self, dx, dy):
+        dist = math.sqrt(dx**2 + dy**2)
+        if dist > self.moveSpeed:
+            dx = int(dx / dist * moveSpeed)
+            dy = int(dy / dist * moveSpeed)
+
+        self.x += dx
+        self.y += dy
+
     def moveInDirection(self, dx, dy):
         actual_dis = math.sqrt(dx ** 2 + dy ** 2)
         dx = int(dx / actual_dis * self.moveSpeed)
@@ -73,7 +82,6 @@ class Drone:
         self.x += dx
         self.y += dy
 
-        print(self.x, " ", self.y)
 
 class Person:
     x = 0
@@ -100,12 +108,12 @@ class Person:
 
 
 
-retAttr = WorldStateInstance([Person()], [Drone()])
+# retAttr = WorldStateInstance([Person()], [Drone()])
 # sa = algorithms.SearchAlgorithm(retAttr)
-sa = algorithms.ZShapeAlgorithm(retAttr)
+# sa = algorithms.ZShapeAlgorithm(retAttr)
 
-# retAttr = worldStateInstance([Person()], [Drone(), Drone(), Drone(), Drone(), Drone(), Drone()])
-# sa = algorithms.SpiralSearchAlgorithm(retAttr)
+retAttr = WorldStateInstance([Person()], [Drone(), Drone(), Drone(), Drone(), Drone(), Drone()])
+sa = algorithms.SpiralSearchAlgorithm(retAttr)
 
 # print(retAttr)
 def update():
