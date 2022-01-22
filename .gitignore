@@ -1,0 +1,4 @@
+.vimdir
+API_KEY.json
+test.py
+venv/
