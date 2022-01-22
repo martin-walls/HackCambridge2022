@@ -1,4 +1,6 @@
 import algorithms
+import math
+
 
 class worldStateInstance:
     peopleList = []
@@ -34,6 +36,17 @@ class Drone:
 
     def getSearchRadius(self):
         return self.searchRadius
+
+    def detectPerson(self, peopleList):
+        found_people_list = []
+        for person in peopleList:
+            distance = math.sqrt((self.x - person.x) ** 2 + (self.y - person.y) ** 2)
+            if distance <= self.searchRadius:
+                print("Find a person")
+                found_people_list.append(person)
+        return found_people_list
+
+
 
 
 class Person:
