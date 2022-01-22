@@ -2,8 +2,10 @@ import algorithms
 import math
 import random
 
+WIDTH = 500
+HEIGHT = 700
 
-class worldStateInstance:
+class WorldStateInstance:
     peopleList = []
     droneList = []
     numDrones = 0
@@ -15,8 +17,8 @@ class worldStateInstance:
         self.peopleList = listOfPersonObjects
         self.droneList = listOfDroneObjects
         self.numDrones = len(listOfDroneObjects)
-        self.width = 700
-        self.height = 500
+        self.width = WIDTH
+        self.height = HEIGHT
 
 
 class Drone:
@@ -25,12 +27,16 @@ class Drone:
     searchRadius = 0
     moveSpeed = 0
 
-    def __init__(self):
+    def __init__(self, x=70, y=90):
         """ Creates drone object """
-        self.x = 70
-        self.y = 90
+        self.x = x
+        self.y = y
         self.searchRadius = 200
-        self.moveSpeed = self.searchRadius
+        self.moveSpeed = 10
+
+    def setCoords(self, x, y):
+        self.x = x
+        self.y = y
 
     def returnCoords(self):
         return (self.x, self.y)
@@ -41,6 +47,7 @@ class Drone:
     def detectPerson(self, peopleList):
         found_people_list = []
         for person in peopleList:
+            # can use object detection algorithm in the future to determine whether a person has been detected
             distance = math.sqrt((self.x - person.x) ** 2 + (self.y - person.y) ** 2)
             if distance <= self.searchRadius:
                 print("Find a person")
@@ -58,8 +65,13 @@ class Drone:
         self.x += delta_x
         self.y += delta_y
 
+    def moveInDirection(self, dx, dy):
+        actual_dis = math.sqrt(dx ** 2 + dy ** 2)
+        dx = dx / actual_dis * self.moveSpeed
+        dy = dy / actual_dis * self.moveSpeed
 
-
+        self.x += dx
+        self.y += dy
 
 
 class Person:
@@ -87,11 +99,14 @@ class Person:
 
 
 
-retAttr = worldStateInstance([Person()], [Drone()])
-sa = algorithms.SearchAlgorithm(retAttr)
+retAttr = WorldStateInstance([Person()], [Drone()])
+# sa = algorithms.SearchAlgorithm(retAttr)
+sa = algorithms.ZShapeAlgorithm(retAttr)
+
 # retAttr = worldStateInstance([Person()], [Drone(), Drone(), Drone(), Drone(), Drone(), Drone()])
 # sa = algorithms.SpiralSearchAlgorithm(retAttr)
 
+# print(retAttr)
 def update():
     retAttr = sa.returnNextWorldStateInstance()
     retAttr.peopleList[0].moveRandomly()
