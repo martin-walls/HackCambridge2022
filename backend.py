@@ -7,6 +7,7 @@ HEIGHT = 700
 
 class WorldStateInstance:
     peopleList = []
+    numPeople = 0
     droneList = []
     numDrones = 0
     width = 0
@@ -23,8 +24,11 @@ class WorldStateInstance:
             self.peopleList.append(Person())
 
         self.numDrones = droneNum
+        self.numPeople = peopleNum
         self.width = WIDTH
         self.height = HEIGHT
+
+        print(self.droneList)
 
 
 class Drone:
@@ -127,14 +131,29 @@ class Person:
 
 
 
+class Backend:
+    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1):
+        """ create a backend instance with the given config """
+        self.world_state = WorldStateInstance(num_drones, num_people)
+        if alg_to_use == "basic":
+            self.search_alg = algorithms.BasicSearchAlgorithm(self.world_state)
+        elif alg_to_use == "zshape":
+            self.search_alg = algorithms.ZShapeAlgorithm(self.world_state)
+        elif alg_to_use == "spiral":
+            self.search_alg = algorithms.SpiralSearchAlgorithm(self.world_state)
+        else:
+            print("Invalid algorithm option: {}. Using basic algorithm instead.".format(alg_to_use))
+            self.search_alg = algorithms.BasicSearchAlgorithm(self.world_state)
 
-retAttr = WorldStateInstance(3, 1)
-# sa = algorithms.SearchAlgorithm(retAttr)
-sa = algorithms.BasicSearchAlgorithm(retAttr)
+    # retAttr = WorldStateInstance(3, 1)
+    # sa = algorithms.SearchAlgorithm(retAttr)
+    # sa = algorithms.BasicSearchAlgorithm(retAttr)
 
+    # print(retAttr)
+    def update(self):
+        self.world_state = self.search_alg.returnNextWorldStateInstance()
+        # move people
+        for person in self.world_state.peopleList:
+            person.moveRandomly()
+        return self.world_state
 
-# print(retAttr)
-def update():
-    retAttr = sa.returnNextWorldStateInstance()
-    retAttr.peopleList[0].moveRandomly()
-    return retAttr

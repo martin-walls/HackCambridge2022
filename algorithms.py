@@ -118,10 +118,9 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
             drone.x = 50
             drone.y = 50
 
-        print(self._drone_dirs)
 
     def returnNextWorldStateInstance(self):
-        for i in range(len(self.worldState.droneList)):
+        for i in range(self.worldState.numDrones):
             drone = self.worldState.droneList[i]
             angle = self._drone_dirs[i]
             drone.move_by_angle(angle, self._speed)

@@ -59,11 +59,25 @@ def render(person_list, drone_list):
 
 if __name__ == "__main__":
 
+    alg = "basic"
+    num_drones = 3
+    num_people = 1
+
+    # allow running simulation with argument specifying which search algorithm to use
+    if len(sys.argv) >= 2:
+        alg = sys.argv[1]
+        if len(sys.argv) >= 3:
+            num_drones = int(sys.argv[2])
+            if len(sys.argv) >= 4:
+                num_people = int(sys.argv[3])
+
+    bck = backend.Backend(alg, num_drones, num_people)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-        attrs = backend.update()
-        render(attrs.peopleList, attrs.droneList)
+        world_state = bck.update()
+        render(world_state.peopleList, world_state.droneList)
