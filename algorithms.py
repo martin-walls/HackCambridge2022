@@ -67,7 +67,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             self.startingWidthLocations.append(int((WSI.width / len(WSI.droneList)) * i))
 
     def returnNextWorldStateInstance(self):
-        if (self.dfaState == "setup"):
+        if self.dfaState == "setup":
             # establish starting locations for the drones and move them there
             moveSpeed = self.worldState.droneList[0].moveSpeed
             correctLocation = True
@@ -77,9 +77,9 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                     correctLocation = False
                     # do movemenet of drones towards starting location
                     self.worldState.droneList[i].addToX(min(self.startingWidthLocations[i] - x_loc, moveSpeed))
-            if (correctLocation):
+            if correctLocation:
                 self.dfaState = "scan"
-        elif (self.dfaState == "scan"):
+        elif self.dfaState == "scan":
             moveSpeed = self.worldState.droneList[0].moveSpeed
             widthDistance = self.startingWidthLocations[1]
             listOfDrones = self.worldState.droneList
@@ -89,7 +89,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             #    drone = listOfDrones[i]
             #    drone.detectPerson(self.worldState.peopleList)
             # check if going right, down, left
-            if (self.descending):
+            if self.descending:
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
                     if drone.following == None:
@@ -98,14 +98,14 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                         drone.moveTowardsLocation(drone.following.x, drone.following.y)
                     if (drone.y == self.y_level):
                         self.descending = False
-            elif (self.leftToRight):
+            elif self.leftToRight:
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
                     if drone.following == None:
                         drone.moveTowardsLocation(self.startingWidthLocations[i] + widthDistance, drone.y)
                     else:
                         drone.moveTowardsLocation(drone.following.x, drone.following.y)
-                if (listOfDrones[0].x == self.startingWidthLocations[0] + widthDistance):
+                if listOfDrones[0].x == self.startingWidthLocations[0] + widthDistance:
                         self.leftToRight = False
                         self.descending = True
                         self.y_level += (drone.searchRadius*2)
@@ -116,7 +116,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                         drone.moveTowardsLocation(self.startingWidthLocations[i], drone.y)
                     else:
                         drone.moveTowardsLocation(drone.following.x, drone.following.y)
-                if (listOfDrones[0].x == self.startingWidthLocations[0]):
+                if listOfDrones[0].x == self.startingWidthLocations[0]:
                         self.leftToRight = True
                         self.descending = True
                         self.y_level += (drone.searchRadius*2)
