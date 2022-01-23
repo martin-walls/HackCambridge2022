@@ -34,6 +34,7 @@ class Drone:
     y = 0
     searchRadius = 0
     moveSpeed = 0
+    following = None
 
     def __init__(self, x=70, y=90):
         """ Creates drone object """
@@ -42,6 +43,7 @@ class Drone:
         self.searchRadius = 100
         self.moveSpeed = int(self.searchRadius / 10)
         self.location_history = []
+        self.following = None
 
     def setCoords(self, x, y):
         self.x = x
@@ -68,7 +70,7 @@ class Drone:
             # can use object detection algorithm in the future to determine whether a person has been detected
             distance = math.sqrt((self.x - person.x) ** 2 + (self.y - person.y) ** 2)
             if distance <= self.searchRadius:
-                print("Find a person")
+                # print("Find a person")
                 found_people_list.append(person)
         return found_people_list
 
@@ -118,6 +120,7 @@ class Drone:
 class Person:
     x = 0
     y = 0
+    followed = None
 
     angle = 270
     speed = 2
@@ -126,6 +129,7 @@ class Person:
         """ Creates person object """
         self.x = random.randint(worldStateInstance.width // 3, worldStateInstance.width * 2 // 3)
         self.y = random.randint(worldStateInstance.height // 5, worldStateInstance.height * 2 // 5)
+        self.followed = None
 
     def returnCoords(self):
         return (int(self.x), int(self.y))
@@ -164,8 +168,13 @@ class Backend:
 
     def update(self):
         self.world_state = self.search_alg.returnNextWorldStateInstance()
-        # move people
-        # for person in self.world_state.peopleList:
-        #     person.moveRandomly()
+        for drone in self.world_state.droneList:
+            detectedPeople = drone.detectPerson(self.world_state.peopleList)
+            if len(detectedPeople) > 0:
+                for person in detectedPeople:
+                    if person.followed == None:
+                        person.followed = drone
+                        drone.following = person
+                        break
         return self.world_state
 

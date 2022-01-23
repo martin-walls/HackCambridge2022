@@ -103,10 +103,13 @@ class ZShapeAlgorithm(SearchAlgorithm):
                 self.dfaState = "scan"
         else:
             for drone in self.worldState.droneList:
-                drone.move_absolute(self.dx * self.moveToRight, self.dy)
+                if drone.following == None:
+                    drone.move_absolute(self.dx * self.moveToRight, self.dy)
+                else:
+                    drone.moveTowardsLocation(drone.following.x, drone.following.y)
 
-            if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
-                self.moveToRight *= -1
+                if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
+                    self.moveToRight *= -1
 
         self.movePeople()
         return self.worldState
