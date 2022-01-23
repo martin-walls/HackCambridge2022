@@ -43,10 +43,20 @@ class Drone:
         self.y = y
         self.searchRadius = 200
         self.moveSpeed = 10
+        self.location_history = []
 
     def setCoords(self, x, y):
         self.x = x
         self.y = y
+        self.add_current_coords_to_history()
+
+    def addToX(self, dx):
+        self.x += dx
+        self.add_current_coords_to_history()
+
+    def addToY(self, dy):
+        self.y += dy
+        self.add_current_coords_to_history()
 
     def returnCoords(self):
         return (int(self.x), int(self.y))
@@ -74,6 +84,7 @@ class Drone:
         delta_y = speed * math.cos(radians)
         self.x += delta_x
         self.y += delta_y
+        self.add_current_coords_to_history()
 
     def move_absolute(self, dx, dy):
         dist = math.sqrt(dx**2 + dy**2)
@@ -83,6 +94,7 @@ class Drone:
 
         self.x += dx
         self.y += dy
+        self.add_current_coords_to_history()
 
 
     def moveTowardsLocation(self, x_toLocation, y_toLocation):
@@ -95,6 +107,16 @@ class Drone:
         else:
             self.x += x_proposedMove * self.moveSpeed / proposedDistance
             self.y += y_proposedMove * self.moveSpeed / proposedDistance
+        self.add_current_coords_to_history()
+
+    def add_current_coords_to_history(self):
+        self.location_history.append((int(self.x), int(self.y)))
+
+    def get_location_history(self):
+        return self.location_history
+
+    def log_start_location(self):
+        self.add_current_coords_to_history()
 
 
 

@@ -23,6 +23,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
         self.y_level = 0
         for i in range(len(WSI.droneList)):
             self.startingWidthLocations.append(int((WSI.width/len(WSI.droneList))*i))
+            self.worldState.droneList[i].log_start_location()
 
 
     def returnNextWorldStateInstance(self):
@@ -35,7 +36,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                 if (x_loc != self.startingWidthLocations[i]):
                     correctLocation = False
                     # do movemenet of drones towards starting location
-                    self.worldState.droneList[i].x += min(self.startingWidthLocations[i] - x_loc, moveSpeed)
+                    self.worldState.droneList[i].addToX(min(self.startingWidthLocations[i] - x_loc, moveSpeed))
             if (correctLocation):
                 self.dfaState = "scan"
         elif (self.dfaState == "scan"):

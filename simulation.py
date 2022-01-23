@@ -39,7 +39,10 @@ def draw_drone(drone):
     image_coords = (drone_coords[0] - DRONE_IMG_WIDTH/2, drone_coords[1] - DRONE_IMG_WIDTH/2)
     surface.blit(drone_img, image_coords)
     pygame.draw.circle(surface, DRONE_SEARCH_RADIUS_COLOR, drone.returnCoords(), drone.getSearchRadius(), 1)
+    draw_path(drone.get_location_history())
 
+def draw_path(points):
+    pygame.draw.aalines(surface, WHITE, False, points)
 
 def render(person_list, drone_list):
     surface.fill(OCEAN)
