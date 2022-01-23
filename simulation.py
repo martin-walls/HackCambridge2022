@@ -6,7 +6,7 @@ import backend
 
 SIZE = (backend.WIDTH, backend.HEIGHT)
 
-ALG_TO_USE = "zshape"
+ALG_TO_USE = "basic"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
 
