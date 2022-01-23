@@ -112,11 +112,11 @@ class ZShapeAlgorithm(SearchAlgorithm):
                 drone = self.worldState.droneList[i]
                 if drone.following == None:
                     drone.move_absolute(self.dx * self.moveToRight, self.dy)
+                    if drone.x >= self.dx * (i + 1) or drone.x <= self.dx * i:
+                        toTurn = True
                 else:
                     drone.moveTowardsLocation(drone.following.x, drone.following.y)
 
-                if drone.x >= self.dx * (i + 1) or drone.x <= self.dx * i:
-                    toTurn = True
                     # self.moveToRight *= -1
             if toTurn:
                 self.moveToRight *= -1
