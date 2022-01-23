@@ -127,7 +127,7 @@ class Person:
 
     def __init__(self, worldStateInstance):
         """ Creates person object """
-        self.x = random.randint(worldStateInstance.width // 3, worldStateInstance.width * 2 // 3)
+        self.x = random.randint(worldStateInstance.width // 4, worldStateInstance.width * 3 // 4)
         self.y = random.randint(worldStateInstance.height // 5, worldStateInstance.height * 2 // 5)
         self.followed = None
 
