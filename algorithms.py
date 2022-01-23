@@ -103,7 +103,7 @@ class ZShapeAlgorithm(SearchAlgorithm):
 class SpiralSearchAlgorithm(SearchAlgorithm):
     _drone_dirs = []
     _angle_change = 10
-    _speed = 1
+    _speed = 2
     _move_forward_counter = 1
     _move_forward_max = 1
     _drift = (0.5, 0.5)

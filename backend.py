@@ -145,11 +145,7 @@ class Backend:
             print("Invalid algorithm option: {}. Using basic algorithm instead.".format(alg_to_use))
             self.search_alg = algorithms.BasicSearchAlgorithm(self.world_state)
 
-    # retAttr = WorldStateInstance(3, 1)
-    # sa = algorithms.SearchAlgorithm(retAttr)
-    # sa = algorithms.BasicSearchAlgorithm(retAttr)
 
-    # print(retAttr)
     def update(self):
         self.world_state = self.search_alg.returnNextWorldStateInstance()
         # move people

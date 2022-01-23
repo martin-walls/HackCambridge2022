@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     # allow running simulation with argument specifying which search algorithm to use
     if len(sys.argv) >= 2:
-        alg = sys.argv[1]
+        alg = sys.argv[1].lower()
         if len(sys.argv) >= 3:
             num_drones = int(sys.argv[2])
             if len(sys.argv) >= 4:
