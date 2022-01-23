@@ -80,6 +80,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
 class ZShapeAlgorithm(SearchAlgorithm):
     def __init__(self, WSI):
         self.worldState = WSI
+        self.dfaState = "setup"
 
         self.dx = self.worldState.width / self.worldState.numDrones
         self.dy = WSI.droneList[0].searchRadius
@@ -90,6 +91,9 @@ class ZShapeAlgorithm(SearchAlgorithm):
             self.worldState.droneList[i].setCoords(int(self.dx * (i + 0.5)), 0)
 
     def returnNextWorldStateInstance(self):
+        if self.dfaState == "setup":
+            for i in range(self.worldState.)
+
         for drone in self.worldState.droneList:
             drone.move_absolute(self.dx * self.moveToRight, self.dy)
 
@@ -125,6 +129,7 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
             drone.move_by_angle(angle, self._speed)
             drone.move_absolute(*self._drift)
         self._next_state()
+        self.movePeople()
         return self.worldState
 
     def _next_state(self):
