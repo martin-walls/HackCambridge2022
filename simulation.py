@@ -4,7 +4,7 @@ import argparse
 
 import backend
 
-SIZE = (backend.WIDTH, backend.HEIGHT)
+SIZE = (1000, 700)
 
 ALG_TO_USE = "basic"
 NUM_DRONES = 3
