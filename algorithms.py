@@ -126,7 +126,7 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
     _speed = 2
     _move_forward_counter = 1
     _move_forward_max = 1
-    _drift = (0.5, 0.5)
+    _drift = (0.5, 1.5)
 
     def __init__(self, WSI):
         super().__init__(WSI)
