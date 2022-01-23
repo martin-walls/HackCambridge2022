@@ -155,8 +155,11 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
         for i in range(self.worldState.numDrones):
             drone = self.worldState.droneList[i]
             angle = self._drone_dirs[i]
-            drone.move_by_angle(angle, self._speed)
-            drone.move_absolute(*self._drift)
+            if drone.following == None:
+                drone.move_by_angle(angle, self._speed)
+                drone.move_absolute(*self._drift)
+            else:
+                drone.moveTowardsLocation(drone.following.x, drone.following.y)
         self._next_state()
         self.movePeople()
         return self.worldState
