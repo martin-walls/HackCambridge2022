@@ -74,6 +74,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                         self.descending = True
                         self.y_level += (drone.searchRadius*2)
 
+        self.movePeople()
         return self.worldState
 
 
@@ -107,7 +108,7 @@ class ZShapeAlgorithm(SearchAlgorithm):
             if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
                 self.moveToRight *= -1
 
-        # self.movePeople()
+        self.movePeople()
         return self.worldState
 
 

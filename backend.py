@@ -13,7 +13,7 @@ class WorldStateInstance:
     width = 0
     height = 0
 
-    def __init__(self, droneNum, peopleNum):
+    def __init__(self, droneNum, peopleNum, width=WIDTH, height=HEIGHT):
         """ Create a new point at the origin """
         self.droneList = []
         for i in range(droneNum):
@@ -25,8 +25,8 @@ class WorldStateInstance:
 
         self.numDrones = droneNum
         self.numPeople = peopleNum
-        self.width = WIDTH
-        self.height = HEIGHT
+        self.width = width
+        self.height = height
 
         print(self.droneList)
 
@@ -121,10 +121,13 @@ class Person:
     x = 0
     y = 0
 
+    angle = 270
+    speed = 2
+
     def __init__(self):
         """ Creates person object """
-        self.x = 100
-        self.y = 240
+        self.x = random.randint(WIDTH // 3, WIDTH * 2 // 3)
+        self.y = random.randint(HEIGHT // 5, HEIGHT * 2 // 5)
 
     def returnCoords(self):
         return (int(self.x), int(self.y))
@@ -134,17 +137,22 @@ class Person:
         self.y = self.y + y_change
 
     def moveRandomly(self):
-        dx = random.randint(-1, 2)
-        dy = random.randint(-1, 2)
+        if random.randint(0, 4) == 0:
+            self.angle = random.randint(0, 180)
+
+        dx = self.speed * math.cos(math.radians(self.angle))
+        dy = self.speed * math.sin(math.radians(self.angle))
+        # dx = random.randint(-1, 2)
+        # dy = random.randint(0, 2)
         self.movePerson(dx, dy)
 
 
 
 
 class Backend:
-    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1):
+    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1, width=WIDTH, height=HEIGHT):
         """ create a backend instance with the given config """
-        self.world_state = WorldStateInstance(num_drones, num_people)
+        self.world_state = WorldStateInstance(num_drones, num_people, width, height)
         if alg_to_use == "basic":
             self.search_alg = algorithms.BasicSearchAlgorithm(self.world_state)
         elif alg_to_use == "zshape":

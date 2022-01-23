@@ -1,9 +1,40 @@
 import pygame
 import sys
+import argparse
 
 import backend
 
 SIZE = (backend.WIDTH, backend.HEIGHT)
+
+ALG_TO_USE = "basic"
+NUM_DRONES = 3
+NUM_PEOPLE = 1
+
+# parse arguments
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--alg", help="Algorithm to use", type=str)
+    parser.add_argument("--drones", help="Number of drones", type=int)
+    parser.add_argument("--people", help="Number of people", type=int)
+    parser.add_argument("--width", help="Screen width", type=int)
+    parser.add_argument("--height", help="Screen height", type=int)
+
+    args = parser.parse_args()
+
+    print(args)
+
+    if args.width is not None and args.height is not None:
+        SIZE = (args.width, args.height)
+
+    if args.alg is not None:
+        ALG_TO_USE = args.alg
+
+    if args.drones is not None:
+        NUM_DRONES = args.drones
+
+    if args.people is not None:
+        NUM_PEOPLE = args.people
+
 
 # COLORS
 OCEAN = (0, 0, 255)
@@ -77,19 +108,7 @@ def render(person_list, drone_list):
 
 if __name__ == "__main__":
 
-    alg = "basic"
-    num_drones = 3
-    num_people = 1
-
-    # allow running simulation with argument specifying which search algorithm to use
-    if len(sys.argv) >= 2:
-        alg = sys.argv[1].lower()
-        if len(sys.argv) >= 3:
-            num_drones = int(sys.argv[2])
-            if len(sys.argv) >= 4:
-                num_people = int(sys.argv[3])
-
-    bck = backend.Backend(alg, num_drones, num_people)
+    bck = backend.Backend(ALG_TO_USE, NUM_DRONES, NUM_PEOPLE, SIZE[0], SIZE[1])
 
     while True:
         for event in pygame.event.get():
