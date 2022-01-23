@@ -10,7 +10,7 @@ ALG_TO_USE = "zshape"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
 
-SHORT_TRAIL = False
+SHORT_TRAIL = True
 SHORT_TRAIL_LIMIT = 200
 
 # parse arguments
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     parser.add_argument("--people", help="Number of people", type=int)
     parser.add_argument("--width", help="Screen width", type=int)
     parser.add_argument("--height", help="Screen height", type=int)
-    parser.add_argument("--shorttrail", action="store_true")
+    parser.add_argument("--shorttrailoff", action="store_false")
 
     args = parser.parse_args()
 
@@ -39,8 +39,8 @@ if __name__ == "__main__":
     if args.people is not None:
         NUM_PEOPLE = args.people
 
-    if args.shorttrail is not None:
-        SHORT_TRAIL = True
+    if not args.shorttrail:
+        SHORT_TRAIL = False
 
 
 # COLORS
