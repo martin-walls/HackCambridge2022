@@ -6,7 +6,7 @@ import backend
 
 SIZE = (backend.WIDTH, backend.HEIGHT)
 
-ALG_TO_USE = "basic"
+ALG_TO_USE = "zshape"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         SIZE = (args.width, args.height)
 
     if args.alg is not None:
-        ALG_TO_USE = args.alg
+        ALG_TO_USE = args.alg.lower()
 
     if args.drones is not None:
         NUM_DRONES = args.drones
