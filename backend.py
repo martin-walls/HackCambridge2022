@@ -123,8 +123,8 @@ class Person:
 
     def __init__(self):
         """ Creates person object """
-        self.x = 100
-        self.y = 240
+        self.x = random.randint(WIDTH // 3, WIDTH * 2 // 3)
+        self.y = random.randint(HEIGHT // 5, HEIGHT * 2 // 5)
 
     def returnCoords(self):
         return (int(self.x), int(self.y))
