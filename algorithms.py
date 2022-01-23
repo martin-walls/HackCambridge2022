@@ -61,18 +61,18 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
                     drone.moveTowardsLocation(self.startingWidthLocations[i] + widthDistance, drone.y)
-                    if (drone.x == self.startingWidthLocations[i] + widthDistance):
+                if (listOfDrones[0].x == self.startingWidthLocations[0] + widthDistance):
                         self.leftToRight = False
                         self.descending = True
-                        self.y_level += (drone.searchRadius)
+                        self.y_level += (drone.searchRadius*2)
             else:
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
                     drone.moveTowardsLocation(self.startingWidthLocations[i], drone.y)
-                    if (drone.x == self.startingWidthLocations[i]):
+                if (listOfDrones[0].x == self.startingWidthLocations[0]):
                         self.leftToRight = True
                         self.descending = True
-                        self.y_level += (drone.searchRadius)
+                        self.y_level += (drone.searchRadius*2)
 
         self.movePeople()
         return self.worldState
