@@ -68,8 +68,8 @@ class Drone:
         radians = math.radians(angle)
         delta_x = speed * math.sin(radians)
         delta_y = speed * math.cos(radians)
-        self.x += delta_x
-        self.y += delta_y
+        self.x += int(delta_x)
+        self.y += int(delta_y)
 
     def move_absolute(self, dx, dy):
         dist = math.sqrt(dx**2 + dy**2)
@@ -98,8 +98,8 @@ class Drone:
             self.x += x_proposedMove
             self.y += y_proposedMove
         else:
-            self.x += x_proposedMove * self.moveSpeed / proposedDistance
-            self.y += y_proposedMove * self.moveSpeed / proposedDistance
+            self.x += int(x_proposedMove * self.moveSpeed / proposedDistance)
+            self.y += int(y_proposedMove * self.moveSpeed / proposedDistance)
 
 
 
