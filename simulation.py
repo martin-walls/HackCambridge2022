@@ -6,7 +6,7 @@ import backend
 
 SIZE = (1000, 700)
 
-ALG_TO_USE = "zshape"
+ALG_TO_USE = "spiral"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
 

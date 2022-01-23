@@ -58,13 +58,19 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             if (self.descending):
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
-                    drone.moveTowardsLocation(drone.x, self.y_level)
+                    if drone.following == None:
+                        drone.moveTowardsLocation(drone.x, self.y_level)
+                    else:
+                        drone.moveTowardsLocation(drone.following.x, drone.following.y)
                     if (drone.y == self.y_level):
                         self.descending = False
             elif (self.leftToRight):
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
-                    drone.moveTowardsLocation(self.startingWidthLocations[i] + widthDistance, drone.y)
+                    if drone.following == None:
+                        drone.moveTowardsLocation(self.startingWidthLocations[i] + widthDistance, drone.y)
+                    else:
+                        drone.moveTowardsLocation(drone.following.x, drone.following.y)
                 if (listOfDrones[0].x == self.startingWidthLocations[0] + widthDistance):
                         self.leftToRight = False
                         self.descending = True
@@ -72,7 +78,10 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             else:
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
-                    drone.moveTowardsLocation(self.startingWidthLocations[i], drone.y)
+                    if drone.following == None:
+                        drone.moveTowardsLocation(self.startingWidthLocations[i], drone.y)
+                    else:
+                        drone.moveTowardsLocation(drone.following.x, drone.following.y)
                 if (listOfDrones[0].x == self.startingWidthLocations[0]):
                         self.leftToRight = True
                         self.descending = True
@@ -107,14 +116,18 @@ class ZShapeAlgorithm(SearchAlgorithm):
             if allFinished:
                 self.dfaState = "scan"
         else:
-            for drone in self.worldState.droneList:
+            toTurn = False
+            for i in range(self.worldState.numDrones):
+                drone = self.worldState.droneList[i]
                 if drone.following == None:
                     drone.move_absolute(self.dx * self.moveToRight, self.dy)
+                    if drone.x >= self.dx * (i + 1) or drone.x <= self.dx * i:
+                        toTurn = True
                 else:
                     drone.moveTowardsLocation(drone.following.x, drone.following.y)
 
-                if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
-                    self.moveToRight *= -1
+            if toTurn:
+                self.moveToRight *= -1
 
         self.movePeople()
         return self.worldState
@@ -142,8 +155,11 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
         for i in range(self.worldState.numDrones):
             drone = self.worldState.droneList[i]
             angle = self._drone_dirs[i]
-            drone.move_by_angle(angle, self._speed)
-            drone.move_absolute(*self._drift)
+            if drone.following == None:
+                drone.move_by_angle(angle, self._speed)
+                drone.move_absolute(*self._drift)
+            else:
+                drone.moveTowardsLocation(drone.following.x, drone.following.y)
         self._next_state()
         self.movePeople()
         return self.worldState
