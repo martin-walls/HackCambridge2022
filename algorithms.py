@@ -1,7 +1,9 @@
 import numpy as np
 
+
 class SearchAlgorithm:
     worldState = 0
+
     def __init__(self, WSI):
         """ Creates general algorithm class """
         self.worldState = WSI
@@ -9,12 +11,18 @@ class SearchAlgorithm:
     def returnNextWorldStateInstance(self):
         return self.worldState
 
+    def movePeople(self):
+        for person in self.worldState.peopleList:
+            person.moveRandomly()
+
+
 class BasicSearchAlgorithm(SearchAlgorithm):
     dfaState = ""
     leftToRight = True
     descending = False
     y_level = 0
     startingWidthLocations = []
+
     def __init__(self, WSI):
         self.worldState = WSI
         self.dfaState = "setup"
@@ -22,9 +30,8 @@ class BasicSearchAlgorithm(SearchAlgorithm):
         self.descending = False
         self.y_level = 0
         for i in range(len(WSI.droneList)):
-            self.startingWidthLocations.append(int((WSI.width/len(WSI.droneList))*i))
+            self.startingWidthLocations.append(int((WSI.width / len(WSI.droneList)) * i))
             self.worldState.droneList[i].log_start_location()
-
 
     def returnNextWorldStateInstance(self):
         if (self.dfaState == "setup"):
@@ -90,6 +97,7 @@ class ZShapeAlgorithm(SearchAlgorithm):
         if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
             self.moveToRight *= -1
 
+        self.movePeople()
         return self.worldState
 
 
@@ -110,7 +118,6 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
             # drone.y = self.worldState.height / 2
             drone.x = 100
             drone.y = 100
-
 
     def returnNextWorldStateInstance(self):
         for i in range(self.worldState.numDrones):
