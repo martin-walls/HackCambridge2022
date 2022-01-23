@@ -92,7 +92,6 @@ class ZShapeAlgorithm(SearchAlgorithm):
         #     self.worldState.droneList[i].setCoords(self.dx * (i + 0.5), 0)
 
     def returnNextWorldStateInstance(self):
-<<<<<<< Updated upstream
         if self.dfaState == "setup":
             allFinished = True
             for i in range(self.worldState.numDrones):
@@ -104,17 +103,13 @@ class ZShapeAlgorithm(SearchAlgorithm):
                 self.dfaState = "scan"
         else:
             for drone in self.worldState.droneList:
-                drone.move_absolute(self.dx * self.moveToRight, self.dy)
-=======
-        for drone in self.worldState.droneList:
-            if drone.following == None:
-                drone.move_absolute(self.dx * self.moveToRight, self.dy)
-            else:
-                drone.moveTowardsLocation(drone.following.x, drone.following.y)
->>>>>>> Stashed changes
+                if drone.following == None:
+                    drone.move_absolute(self.dx * self.moveToRight, self.dy)
+                else:
+                    drone.moveTowardsLocation(drone.following.x, drone.following.y)
 
-            if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
-                self.moveToRight *= -1
+                if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
+                    self.moveToRight *= -1
 
         self.movePeople()
         return self.worldState

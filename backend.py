@@ -44,11 +44,8 @@ class Drone:
         self.y = y
         self.searchRadius = 100
         self.moveSpeed = int(self.searchRadius / 10)
-<<<<<<< Updated upstream
         self.location_history = []
-=======
         self.following = None
->>>>>>> Stashed changes
 
     def setCoords(self, x, y):
         self.x = x
@@ -132,14 +129,9 @@ class Person:
 
     def __init__(self):
         """ Creates person object """
-<<<<<<< Updated upstream
         self.x = random.randint(WIDTH // 3, WIDTH * 2 // 3)
         self.y = random.randint(HEIGHT // 5, HEIGHT * 2 // 5)
-=======
-        self.x = 100
-        self.y = 240
         self.followed = None
->>>>>>> Stashed changes
 
     def returnCoords(self):
         return (int(self.x), int(self.y))

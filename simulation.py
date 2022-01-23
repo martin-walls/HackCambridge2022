@@ -6,7 +6,7 @@ import backend
 
 SIZE = (backend.WIDTH, backend.HEIGHT)
 
-ALG_TO_USE = "basic"
+ALG_TO_USE = "zshape"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
 
@@ -108,23 +108,7 @@ def render(person_list, drone_list):
 
 if __name__ == "__main__":
 
-<<<<<<< Updated upstream
     bck = backend.Backend(ALG_TO_USE, NUM_DRONES, NUM_PEOPLE, SIZE[0], SIZE[1])
-=======
-    alg = "zshape"
-    num_drones = 3
-    num_people = 1
-
-    # allow running simulation with argument specifying which search algorithm to use
-    if len(sys.argv) >= 2:
-        alg = sys.argv[1].lower()
-        if len(sys.argv) >= 3:
-            num_drones = int(sys.argv[2])
-            if len(sys.argv) >= 4:
-                num_people = int(sys.argv[3])
-
-    bck = backend.Backend(alg, num_drones, num_people)
->>>>>>> Stashed changes
 
     while True:
         for event in pygame.event.get():
