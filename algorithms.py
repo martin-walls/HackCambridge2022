@@ -171,7 +171,7 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
     _speed = 3
     _move_forward_counter = 1
     _move_forward_max = 1
-    _drift = (0.5, 1.5)
+    _drift = (1, 1.5)
 
     def __init__(self, WSI):
         super().__init__(WSI)
@@ -182,6 +182,8 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
             # drone.y = self.worldState.height / 2
             drone.x = 100
             drone.y = 100
+
+        _drift = (self.worldState.width / 1000, self.worldState.height / 1000)
 
     def returnNextWorldStateInstance(self):
         for i in range(self.worldState.numDrones):
