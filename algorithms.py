@@ -22,6 +22,8 @@ class SearchAlgorithm:
             person.moveRandomly()
 
     def isAPersonFound(self):
+        if len(self.worldState.peopleList) > 1:
+            return False
         for person in self.worldState.peopleList:
             if person.followed:
                 return True
