@@ -45,11 +45,11 @@ class Drone:
         self.moveSpeed = 10
 
     def setCoords(self, x, y):
-        self.x = int(x)
-        self.y = int(y)
+        self.x = x
+        self.y = y
 
     def returnCoords(self):
-        return (self.x, self.y)
+        return (int(self.x), int(self.y))
 
     def getSearchRadius(self):
         return self.searchRadius
@@ -72,8 +72,8 @@ class Drone:
         radians = math.radians(angle)
         delta_x = speed * math.sin(radians)
         delta_y = speed * math.cos(radians)
-        self.x += int(delta_x)
-        self.y += int(delta_y)
+        self.x += delta_x
+        self.y += delta_y
 
     def move_absolute(self, dx, dy):
         dist = math.sqrt(dx**2 + dy**2)
@@ -81,8 +81,8 @@ class Drone:
             dx = dx / dist * self.moveSpeed
             dy = dy / dist * self.moveSpeed
 
-        self.x += int(dx)
-        self.y += int(dy)
+        self.x += dx
+        self.y += dy
 
 
     def moveTowardsLocation(self, x_toLocation, y_toLocation):
@@ -90,11 +90,11 @@ class Drone:
         y_proposedMove = y_toLocation - self.y
         proposedDistance = math.sqrt(x_proposedMove ** 2 + y_proposedMove ** 2)
         if proposedDistance <= self.moveSpeed:
-            self.x += int(x_proposedMove)
-            self.y += int(y_proposedMove)
+            self.x += x_proposedMove
+            self.y += y_proposedMove
         else:
-            self.x += int(x_proposedMove * self.moveSpeed / proposedDistance)
-            self.y += int(y_proposedMove * self.moveSpeed / proposedDistance)
+            self.x += x_proposedMove * self.moveSpeed / proposedDistance
+            self.y += y_proposedMove * self.moveSpeed / proposedDistance
 
 
 
@@ -108,7 +108,7 @@ class Person:
         self.y = 240
 
     def returnCoords(self):
-        return (self.x, self.y)
+        return (int(self.x), int(self.y))
 
     def movePerson(self, x_change, y_change):
         self.x = self.x + x_change

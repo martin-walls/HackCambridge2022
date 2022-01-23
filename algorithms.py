@@ -107,8 +107,8 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
         for drone in self.worldState.droneList:
             # drone.x = self.worldState.width / 2
             # drone.y = self.worldState.height / 2
-            drone.x = 50
-            drone.y = 50
+            drone.x = 100
+            drone.y = 100
 
 
     def returnNextWorldStateInstance(self):
