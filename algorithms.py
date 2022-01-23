@@ -48,9 +48,13 @@ class BasicSearchAlgorithm(SearchAlgorithm):
         elif (self.dfaState == "scan"):
             moveSpeed = self.worldState.droneList[0].moveSpeed
             widthDistance = self.startingWidthLocations[1]
-
-            # check if going right, down, left
             listOfDrones = self.worldState.droneList
+
+            # check if you can spot the person
+            for i in range(len(listOfDrones)):
+                drone = listOfDrones[i]
+                drone.detectPerson(self.worldState.peopleList)
+            # check if going right, down, left
             if (self.descending):
                 for i in range(len(listOfDrones)):
                     drone = listOfDrones[i]
@@ -82,6 +86,7 @@ class BasicSearchAlgorithm(SearchAlgorithm):
                         self.leftToRight = True
                         self.descending = True
                         self.y_level += (drone.searchRadius*2)
+
 
         self.movePeople()
         return self.worldState
