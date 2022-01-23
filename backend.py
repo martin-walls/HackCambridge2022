@@ -70,7 +70,7 @@ class Drone:
             # can use object detection algorithm in the future to determine whether a person has been detected
             distance = math.sqrt((self.x - person.x) ** 2 + (self.y - person.y) ** 2)
             if distance <= self.searchRadius:
-                print("Find a person")
+                #print("Found a person")
                 found_people_list.append(person)
         return found_people_list
 
@@ -167,7 +167,6 @@ class Backend:
     def update(self):
         self.world_state = self.search_alg.returnNextWorldStateInstance()
         # move people
-        # for person in self.world_state.peopleList:
+        #for person in self.world_state.peopleList:
         #     person.moveRandomly()
         return self.world_state
-
