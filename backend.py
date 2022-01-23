@@ -167,7 +167,7 @@ class Backend:
 
 
     def update(self):
-        self.world_state = self.search_alg.returnNextWorldStateInstance()
+        self.world_state = self.search_alg.nextWorldStateInstance()
         for drone in self.world_state.droneList:
             detectedPeople = drone.detectPerson(self.world_state.peopleList)
             if len(detectedPeople) > 0:

@@ -8,12 +8,44 @@ class SearchAlgorithm:
         """ Creates general algorithm class """
         self.worldState = WSI
 
+    def nextWorldStateInstance(self):
+        self.returnNextWorldStateInstance()
+        if self.isAPersonFound():
+            self.personFoundLine()
+        return self.worldState
+
     def returnNextWorldStateInstance(self):
         return self.worldState
 
     def movePeople(self):
         for person in self.worldState.peopleList:
             person.moveRandomly()
+
+    def isAPersonFound(self):
+        for person in self.worldState.peopleList:
+            if person.followed:
+                return True
+        return False
+
+    def personFoundLine(self):
+        person_loc = ()
+        for person in self.worldState.peopleList:
+            if person.followed:
+                person_loc = person.returnCoords()
+        drones_not_following = []
+        for i in range(self.worldState.numDrones):
+            drone = self.worldState.droneList[i]
+            if drone.following:
+                continue
+            drones_not_following.append(i)
+        dx = person_loc[0] / (i+1)
+        dy = person_loc[1] / (i+1)
+        for i in range(len(drones_not_following)):
+            drone = self.worldState.droneList[drones_not_following[i]]
+            drone.moveTowardsLocation(dx * (i+1), dy * (i+1))
+
+
+
 
 
 class BasicSearchAlgorithm(SearchAlgorithm):
