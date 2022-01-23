@@ -121,6 +121,9 @@ class Person:
     x = 0
     y = 0
 
+    angle = 270
+    speed = 2
+
     def __init__(self):
         """ Creates person object """
         self.x = random.randint(WIDTH // 3, WIDTH * 2 // 3)
@@ -134,8 +137,13 @@ class Person:
         self.y = self.y + y_change
 
     def moveRandomly(self):
-        dx = random.randint(-1, 2)
-        dy = random.randint(-1, 2)
+        if random.randint(0, 4) == 0:
+            self.angle = random.randint(0, 180)
+
+        dx = self.speed * math.cos(math.radians(self.angle))
+        dy = self.speed * math.sin(math.radians(self.angle))
+        # dx = random.randint(-1, 2)
+        # dy = random.randint(0, 2)
         self.movePerson(dx, dy)
 
 
