@@ -13,7 +13,7 @@ class WorldStateInstance:
     width = 0
     height = 0
 
-    def __init__(self, droneNum, peopleNum):
+    def __init__(self, droneNum, peopleNum, width=WIDTH, height=HEIGHT):
         """ Create a new point at the origin """
         self.droneList = []
         for i in range(droneNum):
@@ -25,8 +25,8 @@ class WorldStateInstance:
 
         self.numDrones = droneNum
         self.numPeople = peopleNum
-        self.width = WIDTH
-        self.height = HEIGHT
+        self.width = width
+        self.height = height
 
         print(self.droneList)
 
@@ -142,9 +142,9 @@ class Person:
 
 
 class Backend:
-    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1):
+    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1, width=WIDTH, height=HEIGHT):
         """ create a backend instance with the given config """
-        self.world_state = WorldStateInstance(num_drones, num_people)
+        self.world_state = WorldStateInstance(num_drones, num_people, width, height)
         if alg_to_use == "basic":
             self.search_alg = algorithms.BasicSearchAlgorithm(self.world_state)
         elif alg_to_use == "zshape":
