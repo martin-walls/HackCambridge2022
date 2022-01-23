@@ -31,7 +31,6 @@ class BasicSearchAlgorithm(SearchAlgorithm):
         self.y_level = 0
         for i in range(len(WSI.droneList)):
             self.startingWidthLocations.append(int((WSI.width / len(WSI.droneList)) * i))
-            self.worldState.droneList[i].log_start_location()
 
     def returnNextWorldStateInstance(self):
         if (self.dfaState == "setup"):

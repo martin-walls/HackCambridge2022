@@ -115,9 +115,6 @@ class Drone:
     def get_location_history(self):
         return self.location_history
 
-    def log_start_location(self):
-        self.add_current_coords_to_history()
-
 
 
 class Person:

@@ -43,10 +43,14 @@ def draw_drone(drone):
 
 def draw_drone_path(drone):
     points = drone.get_location_history()
+    if len(points) < 2:
+        return
     pygame.draw.aalines(surface, DRONE_PATH_COLOR, False, points)
 
 def draw_drone_visibility_path(drone):
     points = drone.get_location_history()
+    if len(points) < 2:
+        return
     for p in points:
         pygame.draw.circle(surface, DRONE_VISIBILITY_PATH_COLOR, p, drone.getSearchRadius(), 0)
 
