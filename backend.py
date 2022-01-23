@@ -41,8 +41,8 @@ class Drone:
         """ Creates drone object """
         self.x = x
         self.y = y
-        self.searchRadius = 200
-        self.moveSpeed = 10
+        self.searchRadius = 100
+        self.moveSpeed = int(self.searchRadius / 10)
 
     def setCoords(self, x, y):
         self.x = x
@@ -140,7 +140,7 @@ class Backend:
     def update(self):
         self.world_state = self.search_alg.returnNextWorldStateInstance()
         # move people
-        for person in self.world_state.peopleList:
-            person.moveRandomly()
+        # for person in self.world_state.peopleList:
+        #     person.moveRandomly()
         return self.world_state
 
