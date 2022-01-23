@@ -4,11 +4,14 @@ import argparse
 
 import backend
 
-SIZE = (backend.WIDTH, backend.HEIGHT)
+SIZE = (1000, 700)
 
 ALG_TO_USE = "basic"
 NUM_DRONES = 3
 NUM_PEOPLE = 1
+
+SHORT_TRAIL = True
+SHORT_TRAIL_LIMIT = 200
 
 # parse arguments
 if __name__ == "__main__":
@@ -18,6 +21,7 @@ if __name__ == "__main__":
     parser.add_argument("--people", help="Number of people", type=int)
     parser.add_argument("--width", help="Screen width", type=int)
     parser.add_argument("--height", help="Screen height", type=int)
+    parser.add_argument("--shorttrailoff", action="store_false")
 
     args = parser.parse_args()
 
@@ -34,6 +38,9 @@ if __name__ == "__main__":
 
     if args.people is not None:
         NUM_PEOPLE = args.people
+
+    if not args.shorttrailoff:
+        SHORT_TRAIL = False
 
 
 # COLORS
@@ -74,12 +81,16 @@ def draw_drone(drone):
 
 def draw_drone_path(drone):
     points = drone.get_location_history()
+    if SHORT_TRAIL and len(points) > SHORT_TRAIL_LIMIT:
+        points = points[-SHORT_TRAIL_LIMIT:]
     if len(points) < 2:
         return
     pygame.draw.aalines(surface, DRONE_PATH_COLOR, False, points)
 
 def draw_drone_visibility_path(drone):
     points = drone.get_location_history()
+    if SHORT_TRAIL and len(points) > SHORT_TRAIL_LIMIT:
+        points = points[-SHORT_TRAIL_LIMIT:]
     if len(points) < 2:
         return
     for p in points:
