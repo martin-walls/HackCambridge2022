@@ -2,9 +2,6 @@ import algorithms
 import math
 import random
 
-WIDTH = 1000
-HEIGHT = 700
-
 class WorldStateInstance:
     peopleList = []
     numPeople = 0
@@ -13,20 +10,21 @@ class WorldStateInstance:
     width = 0
     height = 0
 
-    def __init__(self, droneNum, peopleNum, width=WIDTH, height=HEIGHT):
+    def __init__(self, droneNum, peopleNum, width, height):
         """ Create a new point at the origin """
+        self.width = width
+        self.height = height
+
         self.droneList = []
         for i in range(droneNum):
             self.droneList.append(Drone())
 
         self.peopleList = []
         for i in range(peopleNum):
-            self.peopleList.append(Person())
+            self.peopleList.append(Person(self))
 
         self.numDrones = droneNum
         self.numPeople = peopleNum
-        self.width = width
-        self.height = height
 
         print(self.droneList)
 
@@ -127,10 +125,10 @@ class Person:
     angle = 270
     speed = 2
 
-    def __init__(self):
+    def __init__(self, worldStateInstance):
         """ Creates person object """
-        self.x = random.randint(WIDTH // 3, WIDTH * 2 // 3)
-        self.y = random.randint(HEIGHT // 5, HEIGHT * 2 // 5)
+        self.x = random.randint(worldStateInstance.width // 3, worldStateInstance.width * 2 // 3)
+        self.y = random.randint(worldStateInstance.height // 5, worldStateInstance.height * 2 // 5)
         self.followed = None
 
     def returnCoords(self):
@@ -154,7 +152,7 @@ class Person:
 
 
 class Backend:
-    def __init__(self, alg_to_use="basic", num_drones=3, num_people=1, width=WIDTH, height=HEIGHT):
+    def __init__(self, alg_to_use, num_drones, num_people, width, height):
         """ create a backend instance with the given config """
         self.world_state = WorldStateInstance(num_drones, num_people, width, height)
         if alg_to_use == "basic":
@@ -171,8 +169,8 @@ class Backend:
     def update(self):
         self.world_state = self.search_alg.returnNextWorldStateInstance()
         for drone in self.world_state.droneList:
-            detectedPeople = len(drone.detectPerson(self.world_state.peopleList))
-            if detectedPeople > 0:
+            detectedPeople = drone.detectPerson(self.world_state.peopleList)
+            if len(detectedPeople) > 0:
                 for person in detectedPeople:
                     if person.followed == None:
                         person.followed = drone

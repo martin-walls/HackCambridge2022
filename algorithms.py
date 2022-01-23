@@ -51,9 +51,9 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             listOfDrones = self.worldState.droneList
 
             # check if you can spot the person
-            for i in range(len(listOfDrones)):
-                drone = listOfDrones[i]
-                drone.detectPerson(self.worldState.peopleList)
+            #for i in range(len(listOfDrones)):
+            #    drone = listOfDrones[i]
+            #    drone.detectPerson(self.worldState.peopleList)
             # check if going right, down, left
             if (self.descending):
                 for i in range(len(listOfDrones)):
@@ -131,7 +131,7 @@ class SpiralSearchAlgorithm(SearchAlgorithm):
     _speed = 2
     _move_forward_counter = 1
     _move_forward_max = 1
-    _drift = (0.5, 0.5)
+    _drift = (0.5, 1.5)
 
     def __init__(self, WSI):
         super().__init__(WSI)
