@@ -39,7 +39,7 @@ if __name__ == "__main__":
     if args.people is not None:
         NUM_PEOPLE = args.people
 
-    if not args.shorttrail:
+    if not args.shorttrailoff:
         SHORT_TRAIL = False
 
 
