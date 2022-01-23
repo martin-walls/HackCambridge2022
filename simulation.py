@@ -14,6 +14,8 @@ PERSON_FILL = BLACK
 DRONE_FILL = WHITE
 DRONE_SEARCH_RADIUS_COLOR = (156,156,255)
 DRONE_DOT_RADIUS = 5
+DRONE_PATH_COLOR = (128,128,255)
+DRONE_VISIBILITY_PATH_COLOR = (50,50,255)
 
 screen = pygame.display.set_mode(SIZE)
 fps = pygame.time.Clock()
@@ -34,24 +36,33 @@ def draw_person(person):
 
 
 def draw_drone(drone):
-    # pygame.draw.circle(surface, DRONE_FILL, drone.returnCoords(), DRONE_DOT_RADIUS, 0)
     drone_coords = drone.returnCoords()
     image_coords = (drone_coords[0] - DRONE_IMG_WIDTH/2, drone_coords[1] - DRONE_IMG_WIDTH/2)
     surface.blit(drone_img, image_coords)
     pygame.draw.circle(surface, DRONE_SEARCH_RADIUS_COLOR, drone.returnCoords(), drone.getSearchRadius(), 1)
-    draw_path(drone.get_location_history())
 
-def draw_path(points):
-    pygame.draw.aalines(surface, WHITE, False, points)
+def draw_drone_path(drone):
+    points = drone.get_location_history()
+    pygame.draw.aalines(surface, DRONE_PATH_COLOR, False, points)
+
+def draw_drone_visibility_path(drone):
+    points = drone.get_location_history()
+    for p in points:
+        pygame.draw.circle(surface, DRONE_VISIBILITY_PATH_COLOR, p, drone.getSearchRadius(), 0)
 
 def render(person_list, drone_list):
     surface.fill(OCEAN)
 
-    for person in person_list:
-        draw_person(person)
-
+    # needs to be drawn before the drones so it doesn't draw on top of them
+    for drone in drone_list:
+        draw_drone_visibility_path(drone)
+    for drone in drone_list:
+        draw_drone_path(drone)
     for drone in drone_list:
         draw_drone(drone)
+
+    for person in person_list:
+        draw_person(person)
 
     screen.blit(surface, (0,0))
 

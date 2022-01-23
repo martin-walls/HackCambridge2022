@@ -92,22 +92,22 @@ class ZShapeAlgorithm(SearchAlgorithm):
             self.worldState.droneList[i].setCoords(int(self.dx * (i + 0.5)), 0)
 
     def returnNextWorldStateInstance(self):
-        if self.dfaState == "setup":
-            for i in range(self.worldState.)
+        # if self.dfaState == "setup":
+        #     for i in range(self.worldState.)
 
-        for drone in self.worldState.droneList:
-            drone.move_absolute(self.dx * self.moveToRight, self.dy)
+        # for drone in self.worldState.droneList:
+        #     drone.move_absolute(self.dx * self.moveToRight, self.dy)
 
-        if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
-            self.moveToRight *= -1
+        # if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
+        #     self.moveToRight *= -1
 
-        self.movePeople()
+        # self.movePeople()
         return self.worldState
 
 
 class SpiralSearchAlgorithm(SearchAlgorithm):
     _drone_dirs = []
-    _angle_change = 10
+    _angle_change = 15
     _speed = 2
     _move_forward_counter = 1
     _move_forward_max = 1
