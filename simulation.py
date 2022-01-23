@@ -27,7 +27,7 @@ if __name__ == "__main__":
         SIZE = (args.width, args.height)
 
     if args.alg is not None:
-        ALG_TO_USE = args.alg
+        ALG_TO_USE = args.alg.lower()
 
     if args.drones is not None:
         NUM_DRONES = args.drones
