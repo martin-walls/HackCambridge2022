@@ -51,9 +51,9 @@ class BasicSearchAlgorithm(SearchAlgorithm):
             listOfDrones = self.worldState.droneList
 
             # check if you can spot the person
-            for i in range(len(listOfDrones)):
-                drone = listOfDrones[i]
-                drone.detectPerson(self.worldState.peopleList)
+            #for i in range(len(listOfDrones)):
+            #    drone = listOfDrones[i]
+            #    drone.detectPerson(self.worldState.peopleList)
             # check if going right, down, left
             if (self.descending):
                 for i in range(len(listOfDrones)):
