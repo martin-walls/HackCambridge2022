@@ -22,16 +22,8 @@ class BasicSearchAlgorithm(SearchAlgorithm):
         self.descending = False
         self.y_level = 0
         for i in range(len(WSI.droneList)):
-            self.startingWidthLocations.append((WSI.width/len(WSI.droneList))*i)
+            self.startingWidthLocations.append(int((WSI.width/len(WSI.droneList))*i))
 
-        self.dx = self.worldState.width / self.worldState.numDrones
-        self.dy = WSI.droneList[0].searchRadius
-
-        self.moveToRight = 1
-
-        self.worldState.numDrones = 1
-        for i in range(self.worldState.numDrones):
-            self.worldState.droneList[i].setCoords(int(self.dx * (i + 0.5)), 0)
 
     def returnNextWorldStateInstance(self):
         if (self.dfaState == "setup"):
@@ -92,7 +84,7 @@ class ZShapeAlgorithm(SearchAlgorithm):
 
     def returnNextWorldStateInstance(self):
         for drone in self.worldState.droneList:
-            drone.moveInDirection(self.dx * self.moveToRight, self.dy)
+            drone.move_absolute(self.dx * self.moveToRight, self.dy)
 
         if self.worldState.droneList[0].x >= self.dx or self.worldState.droneList[0].x <= 0:
             self.moveToRight *= -1

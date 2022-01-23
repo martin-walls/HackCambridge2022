@@ -45,8 +45,8 @@ class Drone:
         self.moveSpeed = 10
 
     def setCoords(self, x, y):
-        self.x = x
-        self.y = y
+        self.x = int(x)
+        self.y = int(y)
 
     def returnCoords(self):
         return (self.x, self.y)
@@ -78,29 +78,20 @@ class Drone:
     def move_absolute(self, dx, dy):
         dist = math.sqrt(dx**2 + dy**2)
         if dist > self.moveSpeed:
-            dx = int(dx / dist * self.moveSpeed)
-            dy = int(dy / dist * self.moveSpeed)
+            dx = dx / dist * self.moveSpeed
+            dy = dy / dist * self.moveSpeed
 
-        self.x += dx
-        self.y += dy
+        self.x += int(dx)
+        self.y += int(dy)
 
-    def moveInDirection(self, dx, dy):
-        actual_dis = math.sqrt(dx ** 2 + dy ** 2)
-        dx = int(dx / actual_dis * self.moveSpeed)
-        dy = int(dy / actual_dis * self.moveSpeed)
-
-        self.x += dx
-        self.y += dy
-
-        # print(self.x, " ", self.y)
 
     def moveTowardsLocation(self, x_toLocation, y_toLocation):
         x_proposedMove = x_toLocation - self.x
         y_proposedMove = y_toLocation - self.y
-        proposedDistance = math.sqrt((x_proposedMove)**2 + (y_proposedMove)**2)
-        if (proposedDistance <= self.moveSpeed):
-            self.x += x_proposedMove
-            self.y += y_proposedMove
+        proposedDistance = math.sqrt(x_proposedMove ** 2 + y_proposedMove ** 2)
+        if proposedDistance <= self.moveSpeed:
+            self.x += int(x_proposedMove)
+            self.y += int(y_proposedMove)
         else:
             self.x += int(x_proposedMove * self.moveSpeed / proposedDistance)
             self.y += int(y_proposedMove * self.moveSpeed / proposedDistance)
